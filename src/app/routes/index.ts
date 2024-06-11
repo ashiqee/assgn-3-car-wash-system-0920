@@ -11,14 +11,14 @@ const router = Router()
 
 const moduleRoutes = [
     {
-        path:'/user',
+        path:'/auth',
         route: UserRoutes,
     }
 ]
 
 
 moduleRoutes.forEach((route)=>{
-    router.use(route.path,router.route)
+    router.use(route.path,route.route)
 })
 
 

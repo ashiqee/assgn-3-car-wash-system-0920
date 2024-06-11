@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import notFound from "./app/middlewares/notFound";
 import router from "./app/routes";
+import globalErrorHandler from "./app/middlewares/globalErrorhandler";
 
 const app : Application = express();
 
@@ -17,6 +18,7 @@ const apiCheck = async (req:Request,res:Response)=>{
 
 app.get('/api/',apiCheck);
 
+app.use(globalErrorHandler)
 app.use(notFound)
 
 
