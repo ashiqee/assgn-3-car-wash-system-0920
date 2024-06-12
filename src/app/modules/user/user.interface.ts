@@ -11,3 +11,8 @@ export type TUser ={
     address: string;
 
 }
+
+export type TUserAuth = {
+    email: string,
+    password: string,
+}

@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
-import { TUser } from './user.interface';
+import { TUser, TUserAuth } from './user.interface';
 import { User } from './user.model';
 import config from '../../config';
+import { createToken, verifyToken } from './userAuth.utils';
 
 
 //user registration 
@@ -30,8 +32,84 @@ const createUserIntoDB = async (payload: TUser) => {
 };
 
 
-//get all user data
+//user Login
+
+const userSignIntoDB = async(payload: TUserAuth )=>{
+   const user = await User.isUserExistByEmail(payload.email);
+
+   
+
+   if(!user){
+    throw new AppError(httpStatus.NOT_FOUND,"This user is not register")
+   }
+
+   if(!(await User.isPasswordMatched(payload?.password, user?.password))){
+    throw new AppError(httpStatus.FORBIDDEN, "Password not matched")
+   }
+
+   const jwtPayload = {
+    userEmail:user.email,
+    role: user.role,
+   };
+
+   const accessToken = createToken(
+    jwtPayload,
+    config.JWT_ACCESS_SECRET as string,
+    config.JWT_ACCESS_EXPIRES_IN as string,
+   )
+   const refreshToken = createToken(
+    jwtPayload,
+    config.JWT_REFRESH_SECRET as string,
+    config.JWT_REFRESH_EXPIRES_IN as string,
+   )
+
+
+   const userObject = user.toObject()
+
+   //sent user data without password
+   
+   const {password, ...userWithoutPassword} =userObject;
+   
+
+   return {
+    accessToken,
+    refreshToken,
+    user: userWithoutPassword
+
+   }
+
+}
+
+const refreshToken = async (token: string)=>{
+  const decoded = verifyToken(token,config.JWT_REFRESH_SECRET as string);
+
+  const {userEmail,iat}=decoded;
+
+  const user = await User.isUserExistsByEmail(userEmail);
+  if(!user){
+    throw new AppError(httpStatus.NOT_FOUND,"This user is not register")
+
+  }
+
+  const jwtPayload = {
+    userEmail: user.email,
+    role:user.role,
+  }
+
+  const accessToken = createToken(
+    jwtPayload,
+    config.JWT_ACCESS_SECRET as string,
+    config.JWT_ACCESS_EXPIRES_IN as string,
+  )
+
+  return{
+    accessToken
+  }
+}
+
 
 export const userServices = {
   createUserIntoDB,
+  userSignIntoDB,
+  refreshToken
 };

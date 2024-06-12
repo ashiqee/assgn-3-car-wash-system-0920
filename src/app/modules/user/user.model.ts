@@ -54,7 +54,7 @@ UserSchema.statics.isUserExistByEmail = async function (email: string){
 }
 
 
-UserSchema.statics.isPasswordmarch = async function(
+UserSchema.statics.isPasswordMatched = async function(
     plainTextPassword,
     hashedPassword,
 ){
