@@ -32,6 +32,16 @@ const ServiceSchema = new Schema<TService>(
     }
 )
 
+ServiceSchema.pre("find",function(next){
+    this.find({isDeleted:{$ne:true}});
+    next()
+});
+
+ServiceSchema.pre("findOne",function(next){
+    this.find({isDeleted:{$ne:true}});
+    next()
+})
+
 export const Service =  model<TService>('Service',ServiceSchema)
 
 
@@ -61,5 +71,7 @@ const ServiceSlotSchema = new Schema<TServiceSlot>(
         timestamps:true,
     }
 )
+
+
 
 export const ServicesSlot = model<TServiceSlot>('ServicesSlot',ServiceSlotSchema)

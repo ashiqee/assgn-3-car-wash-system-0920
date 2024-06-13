@@ -17,6 +17,7 @@ router.post('/',auth(USER_ROLE.admin) ,validateRequest(ServiceValidation.createS
 router.get('/',ServicesController.getAllServices)
 router.get('/:id',ServicesController.getSingleService)
 router.put('/:id',auth(USER_ROLE.admin) ,validateRequest(ServiceValidation.updateServiceValidationSchema), ServicesController.updateService)
+router.delete('/:id',auth(USER_ROLE.admin),validateRequest(ServiceValidation.updateServiceValidationSchema) , ServicesController.deleteService)
 
 
 export const ServiceRoutes = router;

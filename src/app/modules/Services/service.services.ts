@@ -37,20 +37,34 @@ const updateServiceIntoDB = async (id: string, payload: Partial<TService>) => {
     throw new AppError(httpStatus.NOT_FOUND, 'This service is not found');
   }
 
-  const {...remainingServiceData } = payload;
+  const { ...remainingServiceData } = payload;
   const modifiedUpdateData: Record<string, unknown> = {
     ...remainingServiceData,
   };
 
+  const result = await Service.findByIdAndUpdate(id, modifiedUpdateData, {
+    new: true,
+    runValidators: true,
+  });
 
+  return result;
+};
 
+// delete service
+const deleteServiceFromDB = async (id: string) => {
+  const isServiceExists = await Service.findById(id);
+
+  if (!isServiceExists) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Service does not exist');
+  }
 
   const result = await Service.findByIdAndUpdate(
     id,
-    modifiedUpdateData ,
-    { new: true, runValidators: true },
+    {
+      isDeleted: true,
+    },
+    { new: true },
   );
-
   return result;
 };
 
@@ -58,5 +72,6 @@ export const Services = {
   createServiceIntoDB,
   getAllServicesFromDB,
   getSingleServiceFromDB,
-  updateServiceIntoDB
+  updateServiceIntoDB,
+  deleteServiceFromDB,
 };

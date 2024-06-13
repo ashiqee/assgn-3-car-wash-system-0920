@@ -21,6 +21,14 @@ const CreateService = catchAsync(async (req,res)=>{
 const getAllServices = catchAsync(async(req,res)=>{
    
     const result = await Services.getAllServicesFromDB();
+    if(!result){
+        return sendResponse(res,{
+             statusCode: httpStatus.NOT_FOUND,
+             success:false,
+             message: "No Data Found",
+             data:[],
+         })
+     }
     sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,
@@ -34,6 +42,14 @@ const getAllServices = catchAsync(async(req,res)=>{
 const getSingleService = catchAsync(async(req,res)=>{
     const {id} = req.params
     const result = await Services.getSingleServiceFromDB(id);
+    if(!result){
+        return sendResponse(res,{
+             statusCode: httpStatus.NOT_FOUND,
+             success:false,
+             message: "No Data Found",
+             data:[],
+         })
+     }
     sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,
@@ -46,6 +62,14 @@ const updateService = catchAsync(async(req,res)=>{
     const {id}=req.params;
     const updateData = req.body;
     const result = await Services.updateServiceIntoDB(id,updateData)
+    if(!result){
+       return sendResponse(res,{
+            statusCode: httpStatus.NOT_FOUND,
+            success:false,
+            message: "No Data Found",
+            data:[],
+        })
+    }
     sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,
@@ -54,9 +78,22 @@ const updateService = catchAsync(async(req,res)=>{
     })
 })
 
+
+const deleteService = catchAsync(async(req,res)=>{
+    const {id}=req.params;
+    const result = await Services.deleteServiceFromDB(id);
+    sendResponse(res,{
+        statusCode: httpStatus.OK,
+        success:true,
+        message: "Service deleted successfully",
+        data:result,
+    })
+})
+
 export const ServicesController = {
     CreateService,
     getAllServices,
     getSingleService,
-    updateService
+    updateService,
+    deleteService
 }
