@@ -112,6 +112,7 @@ const createServiceSlot = catchAsync(async(req,res)=>
     const {service,date,startTime,endTime} = req.body;
 
 
+    // check duplicate time slot 
 
   const isServiceSlotExists = await ServicesSlot.findOne({
     service,date,
@@ -133,7 +134,7 @@ const createServiceSlot = catchAsync(async(req,res)=>
 
     
   if(isServiceSlotExists){
-      throw new AppError(httpStatus.CONFLICT,"Service slot already exist")
+      throw new AppError(httpStatus.CONFLICT,"This Time Service slot already exist")
   }
 
     
