@@ -9,7 +9,13 @@ import { User } from '../modules/user/user.model';
 
 const auth = (...requiredRoles: TRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization;
+    const authHeader = req.headers.authorization;
+    if(!authHeader || !authHeader.startsWith('Bearer ')){
+        throw new AppError(httpStatus.UNAUTHORIZED,"No token provided or invalid token")
+    }
+
+    // split token form bearer 
+    const token = authHeader.split(' ')[1];
 
 
     if (!token) {

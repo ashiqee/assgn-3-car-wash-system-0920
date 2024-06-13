@@ -13,7 +13,7 @@ const CreateService = catchAsync(async (req,res)=>{
     sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,
-        message: "Create a service successfully",
+        message: "Service created successfully",
         data:result,
     })
 })
@@ -24,13 +24,26 @@ const getAllServices = catchAsync(async(req,res)=>{
     sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,
-        message: "Get All service retrived successfully",
+        message: "Services retrieved successfully",
         data:result,
     })
 })
 
 
+
+const getSingleService = catchAsync(async(req,res)=>{
+    const {id} = req.params
+    const result = await Services.getSingleServiceFromDB(id);
+    sendResponse(res,{
+        statusCode: httpStatus.OK,
+        success:true,
+        message: "Service retrieved successfully",
+        data:result,
+    })
+})
+
 export const ServicesController = {
     CreateService,
-    getAllServices
+    getAllServices,
+    getSingleService
 }

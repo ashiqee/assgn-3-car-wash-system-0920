@@ -14,7 +14,8 @@ const router = express.Router()
 
 router.post('/',auth(USER_ROLE.admin) ,validateRequest(ServiceValidation.createServiceValidationSchema), ServicesController.CreateService)
 
-router.get('/',auth(USER_ROLE.admin),ServicesController.getAllServices)
+router.get('/',ServicesController.getAllServices)
+router.get('/:id',ServicesController.getSingleService)
 
 
 export const ServiceRoutes = router;
