@@ -48,7 +48,8 @@ export const Service =  model<TService>('Service',ServiceSchema)
 const ServiceSlotSchema = new Schema<TServiceSlot>(
     {
         service:{
-            type: Schema.Types.ObjectId,
+            // type: Schema.Types.ObjectId,
+            type: String,
             ref:"Service",
             required:true,
         },
@@ -64,6 +65,11 @@ const ServiceSlotSchema = new Schema<TServiceSlot>(
         endTime:{
             type:String,
             required:true,
+        },
+        isBooked:{
+            type: String,
+            enum: ["available","booked","canceled"],
+            default:'available',
         }
 
 

@@ -10,9 +10,14 @@ export type TService= {
 }
 
 export type TServiceSlot= {
-    service: Types.ObjectId;
+    // service: Types.ObjectId;
+    
+    service: string;
     date: string;
     startTime: string;
     endTime:string;
+    isBooked: "available"| "booked"| "canceled";
+    createdAt:string,
+            updatedAt:string,
 
 }

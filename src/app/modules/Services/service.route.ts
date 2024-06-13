@@ -13,6 +13,7 @@ const router = express.Router()
 
 
 router.post('/',auth(USER_ROLE.admin) ,validateRequest(ServiceValidation.createServiceValidationSchema), ServicesController.CreateService)
+router.post('/slots',auth(USER_ROLE.admin) ,validateRequest(ServiceValidation.createServiceSlotSchema), ServicesController.createServiceSlot)
 
 router.get('/',ServicesController.getAllServices)
 router.get('/:id',ServicesController.getSingleService)

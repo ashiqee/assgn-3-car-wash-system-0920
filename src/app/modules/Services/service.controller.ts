@@ -2,6 +2,8 @@ import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { Services } from "./service.services";
+import { generateTimeSlots } from "./service.utils";
+
 
 
 const CreateService = catchAsync(async (req,res)=>{
@@ -83,6 +85,15 @@ const updateService = catchAsync(async(req,res)=>{
 const deleteService = catchAsync(async(req,res)=>{
     const {id}=req.params;
     const result = await Services.deleteServiceFromDB(id);
+
+    if(!result){
+        return sendResponse(res,{
+             statusCode: httpStatus.NOT_FOUND,
+             success:false,
+             message: "No Data Found",
+             data:[],
+         })
+     }
     sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,
@@ -91,10 +102,41 @@ const deleteService = catchAsync(async(req,res)=>{
     })
 })
 
+//create service slot
+
+const createServiceSlot = catchAsync(async(req,res)=>
+{
+    const serviceDuration =60;
+    const {service,date,startTime,endTime} = req.body;
+
+    if(!service|| !date || !startTime || !endTime){
+        return sendResponse(res,{
+            statusCode: httpStatus.BAD_REQUEST,
+            success:false,
+            message: "Missing required fields",
+            data:[],
+        })
+    }
+
+    const slots = generateTimeSlots(service,date,startTime,endTime,serviceDuration);
+
+    const result = await Services.createServiceSlotInDB(slots)
+    
+     sendResponse(res,{
+        statusCode: httpStatus.OK,
+        success:true,
+        message: "Slots created successfully",
+        data:result,
+    })
+}
+)
+
+
 export const ServicesController = {
     CreateService,
     getAllServices,
     getSingleService,
     updateService,
-    deleteService
+    deleteService,
+    createServiceSlot
 }

@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
-import { Service } from './service.model';
-import { TService } from './service.interface';
+import { Service, ServicesSlot } from './service.model';
+import { TService, TServiceSlot } from './service.interface';
 
 const createServiceIntoDB = async (payload: TService) => {
   const isServiceExists = await Service.findOne({ name: payload.name });
@@ -68,10 +68,25 @@ const deleteServiceFromDB = async (id: string) => {
   return result;
 };
 
+//create service slot create 
+
+const createServiceSlotInDB= async (payload: TServiceSlot)=>{
+// const isServiceSlotExists = await ServicesSlot.findOne({startTime:payload.startTime})
+// if(isServiceSlotExists){
+//     throw new AppError(httpStatus.BAD_REQUEST,"Service slot already exist")
+// }
+
+
+
+    const result = await ServicesSlot.create(payload);
+    return result
+}
+
 export const Services = {
   createServiceIntoDB,
   getAllServicesFromDB,
   getSingleServiceFromDB,
   updateServiceIntoDB,
   deleteServiceFromDB,
+  createServiceSlotInDB
 };
