@@ -2,7 +2,9 @@ import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { Services } from "./service.services";
-import { generateTimeSlots } from "./service.utils";
+import {  generateTimeSlots } from "./service.utils";
+import { ServicesSlot } from "../serviceSlots/serviceSlots.model";
+import AppError from "../../errors/AppError";
 
 
 
@@ -109,6 +111,32 @@ const createServiceSlot = catchAsync(async(req,res)=>
     const serviceDuration =60;
     const {service,date,startTime,endTime} = req.body;
 
+
+
+  const isServiceSlotExists = await ServicesSlot.findOne({
+    service,date,
+    $or:[
+        {
+            startTime:{$lte:startTime},
+            endTime:{$gt:startTime},
+        },
+        {
+            startTime:{$lt:endTime},
+            endTime:{$gte:endTime},
+        },
+        {
+            startTime:{$gte:startTime},
+            endTime:{$lte:endTime},
+        },
+    ]
+  })
+
+    
+  if(isServiceSlotExists){
+      throw new AppError(httpStatus.CONFLICT,"Service slot already exist")
+  }
+
+    
     if(!service|| !date || !startTime || !endTime){
         return sendResponse(res,{
             statusCode: httpStatus.BAD_REQUEST,

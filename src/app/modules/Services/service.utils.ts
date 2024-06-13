@@ -1,7 +1,9 @@
-import { TServiceSlot } from "./service.interface";
+import { Types } from "mongoose";
+import { TServiceSlot } from "../serviceSlots/serviceSlots.interface";
 
 
-const convertTimeToMinutes = (time:string):number =>{
+
+export const convertTimeToMinutes = (time:string):number =>{
     const [hours,mintues]=time.split(':').map(Number);
     return hours * 60 + mintues;
 }
@@ -14,7 +16,7 @@ const convertMinutesToTime = (minutes: number): string=>{
 
 
 
-export const generateTimeSlots = (service:string,date:string,startTime:string,endTime:string,serviceDuration:number):TServiceSlot[] =>{
+export const generateTimeSlots = (service:Types.ObjectId,date:string,startTime:string,endTime:string,serviceDuration:number):TServiceSlot[] =>{
 
     const startMinutes = convertTimeToMinutes(startTime);
     const endMinutes = convertTimeToMinutes(endTime);
