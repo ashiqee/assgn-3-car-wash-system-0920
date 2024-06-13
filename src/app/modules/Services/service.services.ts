@@ -19,6 +19,8 @@ const createServiceIntoDB = async(payload: TService)=>{
 
 
 const getAllServicesFromDB = async ()=>{
+  
+    
     const result = await Service.find()
     return result;
 }
