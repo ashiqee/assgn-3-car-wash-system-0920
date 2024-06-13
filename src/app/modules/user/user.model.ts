@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { TUser } from "./user.interface";
+import { TUser, UserModel } from "./user.interface";
 import bcrypt from 'bcrypt';
 import config from "../../config";
 
@@ -44,6 +44,8 @@ UserSchema.pre('save', async function (next) {
     );
     next();
   });
+
+
 UserSchema.post('save', function (doc,next){
     doc.password='';
     next();
@@ -62,4 +64,4 @@ UserSchema.statics.isPasswordMatched = async function(
 }
 
 
-export const User = model<TUser>('User',UserSchema);
+export const User = model<TUser, UserModel>('User',UserSchema);

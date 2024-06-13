@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import { TUser, TUserAuth } from './user.interface';
@@ -35,9 +35,11 @@ const createUserIntoDB = async (payload: TUser) => {
 //user Login
 
 const userSignIntoDB = async(payload: TUserAuth )=>{
+
    const user = await User.isUserExistByEmail(payload.email);
 
    
+;
 
    if(!user){
     throw new AppError(httpStatus.NOT_FOUND,"This user is not register")
@@ -85,7 +87,7 @@ const refreshToken = async (token: string)=>{
 
   const {userEmail,iat}=decoded;
 
-  const user = await User.isUserExistsByEmail(userEmail);
+  const user = await User.isUserExistByEmail(userEmail);
   if(!user){
     throw new AppError(httpStatus.NOT_FOUND,"This user is not register")
 

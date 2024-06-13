@@ -8,6 +8,7 @@ const ServiceSchema = new Schema<TService>(
         name:{
             type: String,
             required: true,
+            unique:true
         },
         description:{
             type: String,
@@ -26,6 +27,8 @@ const ServiceSchema = new Schema<TService>(
             required: true,
             default:false,
         },
+    },{
+        timestamps:true,
     }
 )
 
@@ -54,6 +57,8 @@ const ServiceSlotSchema = new Schema<TServiceSlot>(
         }
 
 
+    },{
+        timestamps:true,
     }
 )
 
