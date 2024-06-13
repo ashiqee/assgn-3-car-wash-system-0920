@@ -79,6 +79,7 @@ const updateService = catchAsync(async(req,res)=>{
 })
 
 
+//delete service 
 const deleteService = catchAsync(async(req,res)=>{
     const {id}=req.params;
     const result = await Services.deleteServiceFromDB(id);
