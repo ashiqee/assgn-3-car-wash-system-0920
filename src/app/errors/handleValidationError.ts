@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-import { TErrorsources } from "../interface/error";
+import { TerrorMessages } from "../interface/error";
 
 
 const handleValidationError = (err: mongoose.Error.ValidationError) => {
 
-const errorSources: TErrorsources = Object.values(err.errors).map(
+const errorMessages: TerrorMessages = Object.values(err.errors).map(
     (val: mongoose.Error.ValidationError | mongoose.Error.CastError) => {
 
     return {
@@ -22,7 +22,7 @@ const statusCode = 400;
 return {
     statusCode,
     message: "Validation Error",
-    errorSources
+    errorMessages
 }
 }
 

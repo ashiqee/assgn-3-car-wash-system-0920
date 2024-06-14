@@ -3,7 +3,7 @@ import { ErrorRequestHandler } from 'express';
 
 import { ZodError } from 'zod';
 import config from '../config';
-import { TErrorsources } from '../interface/errors';
+import { TerrorMessages } from '../interface/errors';
 
 
 import AppError from '../errors/AppError';
@@ -18,7 +18,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
 
 
-  let errorSources: TErrorsources = [
+  let errorMessages: TerrorMessages = [
     { path: '', message: 'Something went wrong' },
   ];
 
@@ -27,50 +27,49 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
    const simplifiederror = handleZodError(err)
    statusCode = simplifiederror.statusCode;
    message = simplifiederror.message;
-   errorSources = simplifiederror.errorSources;
+   errorMessages = simplifiederror.errorMessages;
   
   } else if (err?.name === 'ValidationError') {
     
     const simplifiederror = handleValidationError(err)
     statusCode = simplifiederror?.statusCode;
     message = simplifiederror?.message;
-    errorSources = simplifiederror?.errorSources;
+    errorMessages = simplifiederror?.errorMessages;
   } else if (err?.name === 'CastError') {
 
     const simplifiederror = handleCastError(err)  
     statusCode = simplifiederror?.statusCode;
     message = simplifiederror?.message;
-    errorSources = simplifiederror?.errorSources;
+    errorMessages = simplifiederror?.errorMessages;
   }else if (err?.code === 11000) {
 
     const simplifiederror = handleDuplicateError(err)  
     statusCode = simplifiederror?.statusCode;
     message = simplifiederror?.message;
-    errorSources = simplifiederror?.errorSources;
+    errorMessages = simplifiederror?.errorMessages;
   
   }else if (err instanceof AppError) {
 
     statusCode = err?.statusCode;
     message = err?.message;
-    errorSources = [{
+    errorMessages = [{
       path:'',
-      message:"err?.message",
+      message:err?.message,
     }]
   }else if (err instanceof Error) {
 
     message = err?.message;
-    errorSources = [{
+    errorMessages = [{
       path:'',
-      message:"err?.message",
+      message:err?.message,
     }]
   }
 
   return res.status(statusCode).json({
     success: false,
     message,
-    errorSources,
-    err,
-    stack : config.NODE_ENV === 'development'? err?.stack:null
+    errorMessages,
+       stack : config.NODE_ENV === 'development'? err?.stack:null
     
   });
 };

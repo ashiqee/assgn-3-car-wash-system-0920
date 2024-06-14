@@ -1,12 +1,12 @@
 
 import  mongoose  from 'mongoose';
-import { TErrorsources, TGenericErrorResponse } from '../interface/errors';
+import { TerrorMessages, TGenericErrorResponse } from '../interface/errors';
 
 
 
 const handleCastError = (err: mongoose.Error.CastError) :TGenericErrorResponse => {
 
-    const errorSources : TErrorsources = [
+    const errorMessages : TerrorMessages = [
         { path: err?.path, message: err?.message}
     ]
     
@@ -16,7 +16,7 @@ const handleCastError = (err: mongoose.Error.CastError) :TGenericErrorResponse =
     return {
         statusCode,
         message: "Cast Error[Invalid Id]",
-        errorSources
+        errorMessages
     }
 };
 
