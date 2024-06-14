@@ -14,8 +14,10 @@ const router = express.Router()
 
 
 
-router.post('/',auth(USER_ROLE.admin), validateRequest(BookingValidation.createBookingValidationSchema),
+router.post('/',auth(USER_ROLE.user), validateRequest(BookingValidation.createBookingValidationSchema),
 BookingControllers.createServiceBooking)
 
+
+router.get('/',auth(USER_ROLE.admin),BookingControllers.getAllBookings)
 
 export const serviceBookingRoutes = router;

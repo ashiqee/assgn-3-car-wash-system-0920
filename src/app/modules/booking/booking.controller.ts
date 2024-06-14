@@ -26,7 +26,7 @@ if(customer){
      )
 }
 
-    const result = await (await serviceBookings.createServiceBookingIntoDB(bookingData))
+    const result = await serviceBookings.createServiceBookingIntoDB(bookingData)
 
     // booking succes after update booked 
 
@@ -41,6 +41,17 @@ if(customer){
 })
 
 
+const getAllBookings = catchAsync(async(req,res)=>{
+    const result = await serviceBookings.getAllServiceBookingFromDB()
+    sendResponse(res,{
+        statusCode: httpStatus.OK,
+        success:true,
+        message: "All bookings retrieved successfully",
+        data:result,
+    })
+})
+
 export const BookingControllers = {
     createServiceBooking,
+    getAllBookings
 }

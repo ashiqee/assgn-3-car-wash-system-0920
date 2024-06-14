@@ -13,6 +13,13 @@ const createServiceBookingIntoDB = async(payload: TBooking)=>{
 }
 
 
+const getAllServiceBookingFromDB = async ()=>{
+    const result = ServiceBooking.find().populate('customer service slot','-role -createdAt -updatedAt')
+    return result;
+}
+
+
 export const serviceBookings = {
-    createServiceBookingIntoDB
+    createServiceBookingIntoDB,
+    getAllServiceBookingFromDB
 }

@@ -31,7 +31,10 @@ type VehicaleBrand =
     | "AUDI"
    
 
-
+export interface TQuery {
+    date: string;
+    serviceId: string
+}
 
 export interface TBooking {
   customer: Types.ObjectId;
