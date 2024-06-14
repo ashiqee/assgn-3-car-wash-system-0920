@@ -4,6 +4,7 @@ import sendResponse from "../../utils/sendResponse";
 import { serviceBookings } from "./booking.services";
 import { User } from "../user/user.model";
 import { ServicesSlot } from "../serviceSlots/serviceSlots.model";
+import { TUserAuth } from "../user/user.interface";
 
 
 const createServiceBooking = catchAsync(async(req,res)=>{
@@ -19,7 +20,7 @@ const createServiceBooking = catchAsync(async(req,res)=>{
 
 bookingData.customer = customer?._id;
 
-
+ // booking succes after update booked 
 if(customer){
     await ServicesSlot.findByIdAndUpdate(bookingData.slot,
         {isBooked:"booked"},{new:true}
@@ -28,10 +29,7 @@ if(customer){
 
     const result = await serviceBookings.createServiceBookingIntoDB(bookingData)
 
-    // booking succes after update booked 
-
-
-
+   
       sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,
@@ -40,9 +38,17 @@ if(customer){
     })
 })
 
-
+//get all bookings by admin
 const getAllBookings = catchAsync(async(req,res)=>{
     const result = await serviceBookings.getAllServiceBookingFromDB()
+    if(result.length === 0){
+        return sendResponse(res,{
+             statusCode: httpStatus.NOT_FOUND,
+             success:false,
+             message: "No Data Found",
+             data:[],
+         })
+     }
     sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,
@@ -51,7 +57,37 @@ const getAllBookings = catchAsync(async(req,res)=>{
     })
 })
 
+
+const getUserBookings = catchAsync(async(req,res)=>{
+
+    const user = req.user;
+    const currentuser = await User.findOne({email:user.userEmail})
+
+    const result = await serviceBookings.getUsersBookingsFromDB(currentuser._id)
+  
+    
+    if(result.length === 0){
+        return sendResponse(res,{
+             statusCode: httpStatus.NOT_FOUND,
+             success:false,
+             message: "No Data Found",
+             data:[],
+         })
+     }
+    sendResponse(res,{
+        statusCode: httpStatus.OK,
+        success:true,
+        message: "User bookings retrieved successfully",
+        data:result,
+    })
+
+})
+
+
+
+
 export const BookingControllers = {
     createServiceBooking,
-    getAllBookings
+    getAllBookings,
+    getUserBookings
 }

@@ -19,5 +19,6 @@ BookingControllers.createServiceBooking)
 
 
 router.get('/',auth(USER_ROLE.admin),BookingControllers.getAllBookings)
+router.get('/my-bookings',auth(USER_ROLE.user),BookingControllers.getUserBookings)
 
 export const serviceBookingRoutes = router;
