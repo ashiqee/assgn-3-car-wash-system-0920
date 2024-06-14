@@ -38,7 +38,7 @@ const signInUser = catchAsync(async(req,res)=>{
         statusCode: httpStatus.OK,
         success:true,
         message:"User logged in successfully",
-        token: accessToken,
+        token: `Bearer ${accessToken}`,
         data:user
     })
 })
