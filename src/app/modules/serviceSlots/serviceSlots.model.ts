@@ -36,10 +36,10 @@ const ServiceSlotSchema = new Schema<TServiceSlot>(
     }
 )
 
-ServiceSlotSchema.pre("find",function(next){
-    this.find({isBooked:{$eq:"available"}});
-    next()
-});
+// ServiceSlotSchema.pre("find",function(next){
+//     this.find({isBooked:{$eq:"available"}});
+//     next()
+// });
 
 
 export const ServicesSlot = model<TServiceSlot>('ServicesSlot',ServiceSlotSchema)

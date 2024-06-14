@@ -6,7 +6,7 @@ import { slotsServices } from "./serviceSlots.services";
 
 const getAllServiceSlot = catchAsync(async(req,res)=>{
 
-    const result = await slotsServices.getAllServicesSlotFromDB()
+    const result = await slotsServices.getAllServicesSlotFromDB(req.query)
 
     sendResponse(res,{
         statusCode: httpStatus.OK,
