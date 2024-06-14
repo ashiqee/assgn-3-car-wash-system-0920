@@ -4,6 +4,7 @@ import sendResponse from "../../utils/sendResponse";
 import { slotsServices } from "./serviceSlots.services";
 
 
+
 const getAllServiceSlot = catchAsync(async(req,res)=>{
 
     const result = await slotsServices.getAllServicesSlotFromDB(req.query)

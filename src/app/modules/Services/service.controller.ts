@@ -5,6 +5,7 @@ import { Services } from "./service.services";
 import {  generateTimeSlots } from "./service.utils";
 import { ServicesSlot } from "../serviceSlots/serviceSlots.model";
 import AppError from "../../errors/AppError";
+import { TServiceSlot } from "../serviceSlots/serviceSlots.interface";
 
 
 
@@ -147,7 +148,7 @@ const createServiceSlot = catchAsync(async(req,res)=>
         })
     }
 
-    const slots = generateTimeSlots(service,date,startTime,endTime,serviceDuration);
+    const slots:TServiceSlot[] = generateTimeSlots(service,date,startTime,endTime,serviceDuration);
 
     const result = await Services.createServiceSlotInDB(slots)
     

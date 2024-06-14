@@ -4,13 +4,18 @@ import sendResponse from '../../utils/sendResponse';
 import { serviceBookings } from './booking.services';
 import { User } from '../user/user.model';
 import { ServicesSlot } from '../serviceSlots/serviceSlots.model';
-import { TUserAuth } from '../user/user.interface';
+import AppError from '../../errors/AppError';
+
 
 const createServiceBooking = catchAsync(async (req, res) => {
   const bookingData = req.body;
 
   const user = req.user;
 
+  if (!user || !user.userEmail) {
+    throw new AppError(httpStatus.UNAUTHORIZED, 'User information is missing.');
+  }
+  
   const customer = await User.findOne({ email: user.userEmail });
 
   bookingData.customer = customer?._id;

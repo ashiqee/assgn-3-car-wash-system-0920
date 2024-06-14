@@ -26,7 +26,7 @@ const auth = (...requiredRoles: TRole[]) => {
       token as string,
       config.JWT_ACCESS_SECRET as string,
     ) as JwtPayload;
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
     const { role, userEmail, iat } = decoded;
 
     const user = await User.isUserExistByEmail(userEmail);

@@ -32,8 +32,8 @@ type VehicaleBrand =
    
 
 export interface TQuery {
-    date: string;
-    serviceId: string
+    date?: string;
+    serviceId?: string
 }
 
 export interface TBooking {

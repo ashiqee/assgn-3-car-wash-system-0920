@@ -9,7 +9,8 @@ import { ServicesSlot } from "./serviceSlots.model";
 const getAllServicesSlotFromDB = async (payload:TQuery) => {
     const {date,serviceId}=payload;
 
-    const query = {isBooked:{$eq:"available"}}
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const query: any = {isBooked:{$eq:"available"}}
     if(date){
         query.date =date;
     }

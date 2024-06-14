@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 
 import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
@@ -6,7 +8,7 @@ import { User } from './user.model';
 import config from '../../config';
 import { createToken, verifyToken } from './userAuth.utils';
 
-
+export interface IUserDocument extends TUser, Document {}
 //user registration 
 
 const createUserIntoDB = async (payload: TUser) => {
@@ -66,11 +68,13 @@ const userSignIntoDB = async(payload: TUserAuth )=>{
    )
 
 
-   const userObject = user.toObject()
+  //  const userObject = user.toObject() as TUser;
 
-   //sent user data without password
+  //  //sent user data without password
    
-   const {password, ...userWithoutPassword} =userObject;
+
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   const {password, ...userWithoutPassword} =user.toObject();
    
 
    return {

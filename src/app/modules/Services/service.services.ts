@@ -72,7 +72,7 @@ const deleteServiceFromDB = async (id: string) => {
 
 //create service slot create 
 
-const createServiceSlotInDB= async (payload: TServiceSlot)=>{
+const createServiceSlotInDB= async (payload: TServiceSlot[])=>{
   
 
     const result = await ServicesSlot.create(payload);
