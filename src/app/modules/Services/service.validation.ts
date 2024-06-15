@@ -19,18 +19,10 @@ const updateServiceValidationSchema = z.object({
     })
 })
 
-const createServiceSlotSchema = z.object({
-    body: z.object({
-        service: z.string(),
-        date:z.string(),
-        startTime:z.string(),
-        endTime:z.string()
-    })
-})
+
 
 
 export const  ServiceValidation = {
     createServiceValidationSchema,
-    createServiceSlotSchema,
     updateServiceValidationSchema
 }

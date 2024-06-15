@@ -18,16 +18,7 @@ const updateServiceValidationSchema = zod_1.z.object({
         duration: zod_1.z.number().optional()
     })
 });
-const createServiceSlotSchema = zod_1.z.object({
-    body: zod_1.z.object({
-        service: zod_1.z.string(),
-        date: zod_1.z.string(),
-        startTime: zod_1.z.string(),
-        endTime: zod_1.z.string()
-    })
-});
 exports.ServiceValidation = {
     createServiceValidationSchema,
-    createServiceSlotSchema,
     updateServiceValidationSchema
 };
