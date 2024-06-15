@@ -28,7 +28,7 @@ if(!checkBookedSolt || checkBookedSolt.isBooked === 'booked'){
 
 const checkBookedSlotServiceId =  checkBookedSolt.service.toHexString();
 const bookingDataServiceId =  bookingData.service
-console.log(checkBookedSlotServiceId,bookingDataServiceId);
+
 
 
 if(checkBookedSlotServiceId !== bookingDataServiceId){

@@ -33,7 +33,6 @@ const createServiceBooking = (0, catchAsync_1.default)((req, res) => __awaiter(v
     }
     const checkBookedSlotServiceId = checkBookedSolt.service.toHexString();
     const bookingDataServiceId = bookingData.service;
-    console.log(checkBookedSlotServiceId, bookingDataServiceId);
     if (checkBookedSlotServiceId !== bookingDataServiceId) {
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Service or Slot is not valid");
     }

@@ -29,7 +29,7 @@ const apiCheck = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const message = "Car wash server api running";
     res.send(message);
 });
-app.get('/', apiCheck);
+app.get('/api', apiCheck);
 app.use(globalErrorhandler_1.default);
 app.use(notFound_1.default);
 exports.default = app;

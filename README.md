@@ -4,7 +4,7 @@
 
 - GitHub Repository URL (Server): https://github.com/ashiqee/assgn-3-car-wash-system-0920
 - Live Server Link: https://assgn-3-car-wash-system-0920.onrender.com/api
-- Project Overview Video: 
+- Project Overview Video: https://youtu.be/rIPQYVIBwaE?si=tsot21FvoBQKQn70
 
 - alternative live link : https://car-wash-system-0920.vercel.app/api
 
