@@ -3,7 +3,7 @@
 ### **Submission : (Please check my submissions:)**
 
 - GitHub Repository URL (Server): https://github.com/ashiqee/assgn-3-car-wash-system-0920
-- Live Server Link: https://car-wash-system-0920.vercel.app/api
+- Live Server Link: https://assgn-3-car-wash-system-0920.onrender.com/api
 - Project Overview Video: 
 
 **Objective:** Develop a Express application with TypeScript as the programming language, integrating MongoDB with Mongoose for effective data management. Ensure data integrity through validation using Zod.
@@ -19,7 +19,7 @@ This is a Car Wash Booking System API built with Node.js Express, Mongoose, and 
 - [Configuration](#configuration)
 - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
-- [Project Structure](#project-structure)
+
 
 ## Prerequisites
 
@@ -81,11 +81,11 @@ npm run build
 3. To start the build application:
 
 ```bash
-npm run start:prod
+npm run start
 ```
 
 ## API Endpoints
-live link: https://car-wash-system-0920.vercel.app/api
+live link: https://assgn-3-car-wash-system-0920.onrender.com/api
 
 ### User Routes
     1. User sign up
@@ -107,6 +107,12 @@ live link: https://car-wash-system-0920.vercel.app/api
 
   2. User login
    - `POST` `/auth/login` - User Login as a admin or user.
+
+   [Login API](#login)
+
+```json
+https://assgn-3-car-wash-system-0920.onrender.com/api/auth/login
+```
 
    **Request Body:**
 
@@ -152,7 +158,7 @@ live link: https://car-wash-system-0920.vercel.app/api
 **API URL:**
 
 ```json
-https://car-wash-system-0920.vercel.app/api/services/666a56218e9d8afa23bf0ceb
+https://assgn-3-car-wash-system-0920.onrender.com/api/services/666a56218e9d8afa23bf0ceb
 
 ```
 
@@ -163,7 +169,7 @@ https://car-wash-system-0920.vercel.app/api/services/666a56218e9d8afa23bf0ceb
 **API URL:**
 
 ```json
-https://car-wash-system-0920.vercel.app/api/services
+https://assgn-3-car-wash-system-0920.onrender.com/api/services
 ```
 
 ### 6.  Update Services (Only Accessible by Admin)
@@ -189,7 +195,7 @@ https://car-wash-system-0920.vercel.app/api/services
 **API URL:**
 
 ```json
-https://car-wash-system-0920.vercel.app/api/services/666a58da42ab520dd4783282
+https://assgn-3-car-wash-system-0920.onrender.com/api/services/666a58da42ab520dd4783282
 ```
 
 ### 8. Create Slot (Only Accessible by Admin)
@@ -200,7 +206,7 @@ https://car-wash-system-0920.vercel.app/api/services/666a58da42ab520dd4783282
 
 **API URL:**
 ```json
-https://car-wash-system-0920.vercel.app/api/services/slots
+https://assgn-3-car-wash-system-0920.onrender.com/api/services/slots
 ```
 
 **Request Body:**
@@ -221,7 +227,7 @@ https://car-wash-system-0920.vercel.app/api/services/slots
 
 **Request Query Example:**
 ```json
-https://car-wash-system-0920.vercel.app/api/slots/availability?date=2024-06-14&serviceId=666a56218e9d8afa23bf0ceb
+https://assgn-3-car-wash-system-0920.onrender.com/api/slots/availability?date=2024-06-14&serviceId=666a56218e9d8afa23bf0ceb
 ```
 
 ### 10. Book a Service (Only Accessible by User)
@@ -233,7 +239,7 @@ https://car-wash-system-0920.vercel.app/api/slots/availability?date=2024-06-14&s
 
 **API POST URL:**
 ```json
-https://car-wash-system-0920.vercel.app/api/bookings
+https://assgn-3-car-wash-system-0920.onrender.com/api/bookings
 ```
 
 **Request Body:**
@@ -258,7 +264,7 @@ https://car-wash-system-0920.vercel.app/api/bookings
 
 **API URL:**
 ```json
-https://car-wash-system-0920.vercel.app/api/bookings
+https://assgn-3-car-wash-system-0920.onrender.com/api/bookings
 ```
 
 
@@ -271,7 +277,7 @@ https://car-wash-system-0920.vercel.app/api/bookings
 
 **API URL:**
 ```json
-https://car-wash-system-0920.vercel.app/api/bookings
+https://assgn-3-car-wash-system-0920.onrender.com/api/bookings
 ```
 
 
@@ -287,3 +293,21 @@ https://car-wash-system-0920.vercel.app/api/bookings
 
 ## Bonus part 
 ### 1.  No Data Found
+
+1st Need Login as user
+ [Login here - Api Link](#login)
+
+```json
+https://assgn-3-car-wash-system-0920.onrender.com/api/my-bookings
+```
+
+##If have not any data get No data found
+
+```json
+{
+    "success": false,
+    "statusCode": 404,
+    "message": "No Data Found",
+    "data": []
+}
+```
