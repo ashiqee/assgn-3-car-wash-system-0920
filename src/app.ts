@@ -15,12 +15,12 @@ app.use(cors({
 app.use('/api/',router)
 
 const apiCheck = async (req:Request,res:Response)=>{
-    const message = "Car wash server api run";
+    const message = "Car wash server api running";
     res.send(message)
 }
 
 
-app.get('/api/',apiCheck);
+app.get('/',apiCheck);
 
 app.use(globalErrorHandler)
 app.use(notFound)

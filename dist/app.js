@@ -26,10 +26,10 @@ app.use((0, cors_1.default)({
 }));
 app.use('/api/', routes_1.default);
 const apiCheck = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const message = "Car wash server api run";
+    const message = "Car wash server api running";
     res.send(message);
 });
-app.get('/api/', apiCheck);
+app.get('/', apiCheck);
 app.use(globalErrorhandler_1.default);
 app.use(notFound_1.default);
 exports.default = app;
