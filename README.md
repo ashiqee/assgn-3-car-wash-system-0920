@@ -21,6 +21,7 @@ This is a Car Wash Booking System API built with Node.js Express, Mongoose, and 
 - [Configuration](#configuration)
 - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
+- [Error Handling](#error-handling)
 
 
 ## Prerequisites

@@ -20,7 +20,7 @@ const apiCheck = async (req:Request,res:Response)=>{
 }
 
 
-app.get('/',apiCheck);
+app.get('/api',apiCheck);
 
 app.use(globalErrorHandler)
 app.use(notFound)
