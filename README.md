@@ -6,6 +6,8 @@
 - Live Server Link: https://assgn-3-car-wash-system-0920.onrender.com/api
 - Project Overview Video: 
 
+- alternative live link : https://car-wash-system-0920.vercel.app/api
+
 **Objective:** Develop a Express application with TypeScript as the programming language, integrating MongoDB with Mongoose for effective data management. Ensure data integrity through validation using Zod.
 
 # Car Wash Booking System API
@@ -53,7 +55,8 @@ npm i
 
 NODE_ENV = development
 PORT=5000
-DATABASE_URL = mongodb+srv://ashiqcoder5:BLygrFDYHErU9BHV@cluster0.z58pud1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+<!-- when use please uncomment DATABASE_URL -->
+<!-- DATABASE_URL = mongodb+srv://ashiqcoder5:BLygrFDYHErU9BHV@cluster0.z58pud1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0 -->
 BCRYPT_SALT_ROUNDS=12
 DEFAULT_PASSWORD=carWashSys@2024
 
@@ -86,7 +89,7 @@ npm run start
 
 ## API Endpoints
 live link: https://assgn-3-car-wash-system-0920.onrender.com/api
-[Getting started with Markdown](#getting-started-with-markdown)
+
 ### User Routes
     1. User sign up
 
@@ -294,7 +297,7 @@ https://assgn-3-car-wash-system-0920.onrender.com/api/bookings
 ## Bonus part 
 ### 1.  No Data Found
 
-[Markdown - Summary](#Getting-started-with-Markdown)
+
 1st Need Login as user
  [Login here - Api Link](#login)
 
@@ -312,3 +315,80 @@ https://assgn-3-car-wash-system-0920.onrender.com/api/my-bookings
     "data": []
 }
 ```
+
+### 2.Error Handling
+check `POST` Api link : `https://assgn-3-car-wash-system-0920.onrender.com/api/auth/signup`
+
+Request body example
+
+```json
+{
+    "password": "ph-password",
+    "name": "",
+    "email": "user2@programming-hero.com",
+    "phone": "1234567890",
+    "role": "user",
+    "address": "Dhaka Main Street, City, Country"
+}
+```
+Show Error example
+
+```json
+{
+    "success": false,
+    "message": "Zod validtion Error",
+    "errorMessages": [
+        {
+            "path": "name",
+            "message": "Name is required"
+        }
+    ],
+    "stack":...
+}
+```
+
+### 3. Not Found Route:
+check `GET` api link: `https://assgn-3-car-wash-system-0920.onrender.com/api/my-bookingsdd`
+
+show error: 
+```json
+{
+    "success": false,
+    "statusCode": 404,
+    "message": "Not Found"
+}
+```
+### 4. Authentication Middleware:
+
+- `GET` Route  `/bookings/`
+
+show error: 
+```json
+{
+    "success": false,
+    "message": "You have no access to this route",
+    "errorMessages": [
+        {
+            "path": "",
+            "message": "You have no access to this route"
+        }
+    ],
+    "stack":
+}
+```
+
+
+### 5. Zod Validation:
+
+```json
+{
+    "success": false,
+    "message": "Zod validtion Error",
+    "errorMessages": [
+        {
+            "path": "name",
+            "message": "Name is required"
+        }
+    ],
+    "stack":...
+}
