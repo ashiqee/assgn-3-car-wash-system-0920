@@ -1,4 +1,5 @@
 import httpStatus from 'http-status';
+import { ObjectId } from 'mongoose';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { serviceBookings } from './booking.services';
@@ -15,7 +16,25 @@ const createServiceBooking = catchAsync(async (req, res) => {
   if (!user || !user.userEmail) {
     throw new AppError(httpStatus.UNAUTHORIZED, 'User information is missing.');
   }
+
+
   
+  // check service slot 
+const checkBookedSolt = await ServicesSlot.findById(bookingData.slot);
+if(!checkBookedSolt || checkBookedSolt.isBooked === 'booked'){
+  throw new AppError(httpStatus.BAD_REQUEST,"Slot is already booked")
+}
+
+
+const checkBookedSlotServiceId =  checkBookedSolt.service.toHexString();
+const bookingDataServiceId =  bookingData.service
+console.log(checkBookedSlotServiceId,bookingDataServiceId);
+
+
+if(checkBookedSlotServiceId !== bookingDataServiceId){
+  throw new AppError(httpStatus.BAD_REQUEST,"Service or Slot is not valid")
+}
+
   const customer = await User.findOne({ email: user.userEmail });
 
   bookingData.customer = customer?._id;
