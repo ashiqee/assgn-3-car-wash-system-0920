@@ -32,6 +32,7 @@ const createUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 const signInUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_services_1.userServices.userSignIntoDB(req.body);
     const { refreshToken, accessToken, user } = result;
+
     res.cookie('refreshToken', refreshToken, {
         secure: config_1.default.NODE_ENV === 'production',
         httpOnly: true,
@@ -42,7 +43,7 @@ const signInUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         statusCode: http_status_1.default.OK,
         success: true,
         message: "User logged in successfully",
-        token: `Bearer ${accessToken}`,
+        token: `${accessToken}`,
         data: user
     });
 }));
