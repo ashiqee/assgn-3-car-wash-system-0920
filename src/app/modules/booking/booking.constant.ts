@@ -1,22 +1,23 @@
 
 
 export const vehicaleBrand = [
-    "TATA",
-    "RUNNER",
-    "HYUNDAI",
-    "HINO",
-    "COROLLA",
-    "BMW",
-    "FERRARI",
-    "TOYOTA",
-    "HONDA",
-    "FORD",
-    "CHEVROLET",
-    "NISSAN",
-    "VOLKSWAGEN",
-    "MERCEDES_BENZ",
-    "AUDI",
+    "Tata",
+    "Runner",
+    "Hyundai",
+    "Hino",
+    "Corolla",
+    "Bmw",
+    "Ferrari",
+    "Toyota",
+    "Honda",
+    "Ford",
+    "Chevrolet",
+    "Nissan",
+    "Volkswagen",
+    "Mercedes Benz",
+    "Audi"
 ]
+
 
 
 export const vehicaleType = [

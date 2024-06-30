@@ -42,4 +42,5 @@ const ServiceSlotSchema = new Schema<TServiceSlot>(
 // });
 
 
+
 export const ServicesSlot = model<TServiceSlot>('ServicesSlot',ServiceSlotSchema)

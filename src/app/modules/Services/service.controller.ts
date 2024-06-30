@@ -151,7 +151,9 @@ const createServiceSlot = catchAsync(async(req,res)=>
     const slots:TServiceSlot[] = generateTimeSlots(service,date,startTime,endTime,serviceDuration);
 
     const result = await Services.createServiceSlotInDB(slots)
+
     
+
      sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,

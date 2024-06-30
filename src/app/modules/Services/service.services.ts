@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import { Service } from './service.model';
@@ -76,7 +77,12 @@ const createServiceSlotInDB= async (payload: TServiceSlot[])=>{
   
 
     const result = await ServicesSlot.create(payload);
-    return result
+    const slotsWithoutV = result.map(slot => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { __v, ...slotWithoutV } = slot.toObject();
+      return slotWithoutV;
+  });
+    return slotsWithoutV
 }
 
 export const Services = {

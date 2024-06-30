@@ -11,11 +11,14 @@ const createUser = catchAsync(async (req,res)=>{
 
     const result =  await userServices.createUserIntoDB(userData);
 
+    const resultObj = result.toObject();
+    delete resultObj.password;
+
     sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,
         message: "User registered successfully",
-        data:result,
+        data: resultObj,
     })
 })
 

@@ -20,14 +20,14 @@ const createServiceBooking = catchAsync(async (req, res) => {
 
   
   // check service slot 
-const checkBookedSolt = await ServicesSlot.findById(bookingData.slot);
+const checkBookedSolt = await ServicesSlot.findById(bookingData.slotId);
 if(!checkBookedSolt || checkBookedSolt.isBooked === 'booked'){
   throw new AppError(httpStatus.BAD_REQUEST,"Slot is already booked")
 }
 
 
 const checkBookedSlotServiceId =  checkBookedSolt.service.toHexString();
-const bookingDataServiceId =  bookingData.service
+const bookingDataServiceId =  bookingData.serviceId
 
 
 
@@ -38,17 +38,19 @@ if(checkBookedSlotServiceId !== bookingDataServiceId){
   const customer = await User.findOne({ email: user.userEmail });
 
   bookingData.customer = customer?._id;
+  bookingData.service = bookingDataServiceId;
+  bookingData.slot = bookingData.slotId;
 
   // booking succes after update booked
   if (customer) {
     await ServicesSlot.findByIdAndUpdate(
-      bookingData.slot,
+      bookingData.slotId,
       { isBooked: 'booked' },
       { new: true },
     );
   }
 
-  const result = await serviceBookings.createServiceBookingIntoDB(bookingData);
+  const result = await serviceBookings.createServiceBookingIntoDB(bookingData)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

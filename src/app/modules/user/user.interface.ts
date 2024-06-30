@@ -7,7 +7,7 @@ export type TUser ={
     toObject(): { [x: string]: unknown; password: unknown; };
     name:string;
     email:string;
-    password:string;
+    password?:string;
     phone:string;
     role: TRole;
     address: string;

@@ -18,7 +18,9 @@ const getAllServicesSlotFromDB = async (payload:TQuery) => {
     if(serviceId){
         query.service =serviceId;
     }
-    const result = await ServicesSlot.find(query).populate('service');
+    const result = await ServicesSlot.find(query)
+    .populate('service','-__v')
+    .select('-__v')
     return result;
   };
 

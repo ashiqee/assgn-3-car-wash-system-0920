@@ -6,16 +6,18 @@ const createServiceBookingIntoDB = async(payload: TBooking)=>{
 
 
 
-    const result = ServiceBooking.create(payload)
+    const result = await ServiceBooking.create(payload);
 
-    return result;
+    const populateBooking = await ServiceBooking.findById(result._id)
+    .populate('customer service slot','-role -__v -createdAt -updatedAt').exec();
+    return populateBooking;
 
 }
 
 //get all booking admin
 const getAllServiceBookingFromDB = async ()=>{
     const result = ServiceBooking.find()
-    .populate('customer service slot','-role -__v -createdAt -updatedAt')
+    .populate('customer service slot','-role -__v -createdAt -updatedAt').select('-__v')
     return result;
 }
 
