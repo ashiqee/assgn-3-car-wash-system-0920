@@ -249,8 +249,8 @@ https://assgn-3-car-wash-system-0920.onrender.com/api/bookings
 **Request Body:**
 ```json
 {
-    "serviceId": "666a56218e9d8afa23bf0ceb",
-    "slotId": "666d5566ffa26bfbc2b0d504",
+    "service": "666a56218e9d8afa23bf0ceb",
+    "slot": "666d5566ffa26bfbc2b0d504",
     "vehicleType": "car", // Example enum: 'car','truck', 'suv', 'van',
     "vehicleBrand": "TATA", // Example enum: "TATA","RUNNER","HYUNDAI", "BMW","FERRARI",
     "vehicleModel": "Camry",
@@ -281,7 +281,7 @@ https://assgn-3-car-wash-system-0920.onrender.com/api/bookings
 
 **API URL:**
 ```json
-https://assgn-3-car-wash-system-0920.onrender.com/api/bookings
+https://assgn-3-car-wash-system-0920.onrender.com/api/my-bookings
 ```
 
 
