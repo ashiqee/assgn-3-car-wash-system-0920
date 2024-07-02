@@ -55,9 +55,12 @@ const userSignIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* 
     const user = yield user_model_1.User.isUserExistByEmail(payload.email);
     ;
     if (!user) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "This user is not register");
+        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "This user is not registered");
     }
-    if (!(yield user_model_1.User.isPasswordMatched(payload === null || payload === void 0 ? void 0 : payload.password, user === null || user === void 0 ? void 0 : user.password))) {
+    if (typeof payload.password !== "string") {
+        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Please provide password");
+    }
+    if (!(yield user_model_1.User.isPasswordMatched(payload.password, user === null || user === void 0 ? void 0 : user.password))) {
         throw new AppError_1.default(http_status_1.default.FORBIDDEN, "Password not matched");
     }
     const jwtPayload = {

@@ -50,7 +50,19 @@ const UserSchema = new mongoose_1.Schema({
 UserSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = this;
-        user.password = yield bcrypt_1.default.hash(user.password, Number(config_1.default.BCRYPT_SALT_ROUNDS));
+        if ((user === null || user === void 0 ? void 0 : user.password) && typeof user.password === 'string') {
+            try {
+                const hashedPassword = yield bcrypt_1.default.hash(user.password, Number(config_1.default.BCRYPT_SALT_ROUNDS));
+                user.password = hashedPassword;
+            }
+            catch (err) {
+                return next(err);
+            }
+        }
+        // user?.password = await bcrypt.hash(
+        //   user?.password,
+        //   Number(config.BCRYPT_SALT_ROUNDS),
+        // );
         next();
     });
 });

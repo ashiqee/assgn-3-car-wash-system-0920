@@ -22,7 +22,9 @@ const getAllServicesSlotFromDB = (payload) => __awaiter(void 0, void 0, void 0, 
     if (serviceId) {
         query.service = serviceId;
     }
-    const result = yield serviceSlots_model_1.ServicesSlot.find(query).populate('service');
+    const result = yield serviceSlots_model_1.ServicesSlot.find(query)
+        .populate('service', '-__v')
+        .select('-__v');
     return result;
 });
 exports.slotsServices = {

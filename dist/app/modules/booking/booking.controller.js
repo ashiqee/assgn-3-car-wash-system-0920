@@ -27,20 +27,22 @@ const createServiceBooking = (0, catchAsync_1.default)((req, res) => __awaiter(v
         throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'User information is missing.');
     }
     // check service slot 
-    const checkBookedSolt = yield serviceSlots_model_1.ServicesSlot.findById(bookingData.slot);
+    const checkBookedSolt = yield serviceSlots_model_1.ServicesSlot.findById(bookingData.slotId);
     if (!checkBookedSolt || checkBookedSolt.isBooked === 'booked') {
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Slot is already booked");
     }
     const checkBookedSlotServiceId = checkBookedSolt.service.toHexString();
-    const bookingDataServiceId = bookingData.service;
+    const bookingDataServiceId = bookingData.serviceId;
     if (checkBookedSlotServiceId !== bookingDataServiceId) {
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Service or Slot is not valid");
     }
     const customer = yield user_model_1.User.findOne({ email: user.userEmail });
     bookingData.customer = customer === null || customer === void 0 ? void 0 : customer._id;
+    bookingData.service = bookingDataServiceId;
+    bookingData.slot = bookingData.slotId;
     // booking succes after update booked
     if (customer) {
-        yield serviceSlots_model_1.ServicesSlot.findByIdAndUpdate(bookingData.slot, { isBooked: 'booked' }, { new: true });
+        yield serviceSlots_model_1.ServicesSlot.findByIdAndUpdate(bookingData.slotId, { isBooked: 'booked' }, { new: true });
     }
     const result = yield booking_services_1.serviceBookings.createServiceBookingIntoDB(bookingData);
     (0, sendResponse_1.default)(res, {

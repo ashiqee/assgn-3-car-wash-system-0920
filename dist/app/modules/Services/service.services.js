@@ -24,6 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Services = void 0;
+/* eslint-disable no-unused-vars */
 const http_status_1 = __importDefault(require("http-status"));
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const service_model_1 = require("./service.model");
@@ -38,12 +39,12 @@ const createServiceIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
 });
 // get all services
 const getAllServicesFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield service_model_1.Service.find();
+    const result = yield service_model_1.Service.find().select('-__v');
     return result;
 });
 // get a service
 const getSingleServiceFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield service_model_1.Service.findById(id);
+    const result = yield service_model_1.Service.findById(id).select('-__v');
     return result;
 });
 // update services
@@ -57,7 +58,7 @@ const updateServiceIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, f
     const result = yield service_model_1.Service.findByIdAndUpdate(id, modifiedUpdateData, {
         new: true,
         runValidators: true,
-    });
+    }).select('-__v');
     return result;
 });
 // delete service
@@ -68,13 +69,18 @@ const deleteServiceFromDB = (id) => __awaiter(void 0, void 0, void 0, function* 
     }
     const result = yield service_model_1.Service.findByIdAndUpdate(id, {
         isDeleted: true,
-    }, { new: true });
+    }, { new: true }).select('-__v');
     return result;
 });
 //create service slot create 
 const createServiceSlotInDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield serviceSlots_model_1.ServicesSlot.create(payload);
-    return result;
+    const slotsWithoutV = result.map(slot => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _a = slot.toObject(), { __v } = _a, slotWithoutV = __rest(_a, ["__v"]);
+        return slotWithoutV;
+    });
+    return slotsWithoutV;
 });
 exports.Services = {
     createServiceIntoDB,

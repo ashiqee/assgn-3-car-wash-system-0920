@@ -2,21 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.vehicaleType = exports.vehicaleBrand = void 0;
 exports.vehicaleBrand = [
-    "TATA",
-    "RUNNER",
-    "HYUNDAI",
-    "HINO",
-    "COROLLA",
-    "BMW",
-    "FERRARI",
-    "TOYOTA",
-    "HONDA",
-    "FORD",
-    "CHEVROLET",
-    "NISSAN",
-    "VOLKSWAGEN",
-    "MERCEDES_BENZ",
-    "AUDI",
+    "Tata",
+    "Runner",
+    "Hyundai",
+    "Hino",
+    "Corolla",
+    "Bmw",
+    "Ferrari",
+    "Toyota",
+    "Honda",
+    "Ford",
+    "Chevrolet",
+    "Nissan",
+    "Volkswagen",
+    "Mercedes Benz",
+    "Audi"
 ];
 exports.vehicaleType = [
     'car',

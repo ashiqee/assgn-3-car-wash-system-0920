@@ -12,13 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.serviceBookings = void 0;
 const booking_model_1 = require("./booking.model");
 const createServiceBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = booking_model_1.ServiceBooking.create(payload);
-    return result;
+    const result = yield booking_model_1.ServiceBooking.create(payload);
+    const populateBooking = yield booking_model_1.ServiceBooking.findById(result._id)
+        .populate('customer service slot', '-role -__v -createdAt -updatedAt').exec();
+    return populateBooking;
 });
 //get all booking admin
 const getAllServiceBookingFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = booking_model_1.ServiceBooking.find()
-        .populate('customer service slot', '-role -__v -createdAt -updatedAt');
+        .populate('customer service slot', '-role -__v -createdAt -updatedAt').select('-__v');
     return result;
 });
 //get users all booking get user

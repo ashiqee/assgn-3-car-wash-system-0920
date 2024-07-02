@@ -7,6 +7,7 @@ import { TUser, TUserAuth } from './user.interface';
 import { User } from './user.model';
 import config from '../../config';
 import { createToken, verifyToken } from './userAuth.utils';
+import { string } from 'zod';
 
 export interface IUserDocument extends TUser, Document {}
 //user registration 
@@ -44,10 +45,14 @@ const userSignIntoDB = async(payload: TUserAuth )=>{
 ;
 
    if(!user){
-    throw new AppError(httpStatus.NOT_FOUND,"This user is not register")
+    throw new AppError(httpStatus.NOT_FOUND,"This user is not registered")
    }
 
-   if(!(await User.isPasswordMatched(payload?.password, user?.password))){
+   if(typeof payload.password !=="string"){
+    throw new AppError(httpStatus.BAD_REQUEST,"Please provide password")
+   }
+
+   if(!(await User.isPasswordMatched(payload.password, user?.password as string))){
     throw new AppError(httpStatus.FORBIDDEN, "Password not matched")
    }
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
-import { Schema, model } from "mongoose";
+import { Schema, model, CallbackError } from "mongoose";
 import { TUser, UserModel } from "./user.interface";
 import bcrypt from 'bcrypt';
 import config from "../../config";
@@ -39,12 +39,27 @@ const UserSchema = new Schema<TUser>({
 UserSchema.pre('save', async function (next) {
     
   
-    const user= this; 
+    const user= this as  TUser; 
    
-    user.password = await bcrypt.hash(
-      user.password,
-      Number(config.BCRYPT_SALT_ROUNDS),
-    );
+        if(user?.password && typeof user.password ==='string'){
+
+            try{
+                const hashedPassword = await bcrypt.hash(
+                    user.password,
+                    Number(config.BCRYPT_SALT_ROUNDS),
+                );
+                user.password=hashedPassword;
+            }catch(err){
+                return next(err as CallbackError);
+            }
+
+
+        }
+       
+    // user?.password = await bcrypt.hash(
+    //   user?.password,
+    //   Number(config.BCRYPT_SALT_ROUNDS),
+    // );
     next();
   });
 

@@ -21,18 +21,19 @@ const config_1 = __importDefault(require("../../config"));
 const createUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = req.body;
     const result = yield user_services_1.userServices.createUserIntoDB(userData);
+    const resultObj = result.toObject();
+    delete resultObj.password;
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
         message: "User registered successfully",
-        data: result,
+        data: resultObj,
     });
 }));
 // login user 
 const signInUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_services_1.userServices.userSignIntoDB(req.body);
     const { refreshToken, accessToken, user } = result;
-
     res.cookie('refreshToken', refreshToken, {
         secure: config_1.default.NODE_ENV === 'production',
         httpOnly: true,

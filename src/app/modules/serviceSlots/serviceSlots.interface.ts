@@ -9,4 +9,5 @@ export type TServiceSlot = {
   isBooked: 'available' | 'booked' | 'canceled';
   createdAt: string;
   updatedAt: string;
+  __v?: number;
 };
