@@ -20,14 +20,14 @@ const createServiceIntoDB = async (payload: TService) => {
 // get all services
 
 const getAllServicesFromDB = async () => {
-  const result = await Service.find();
+  const result = await Service.find().select('-__v');
   return result;
 };
 
 // get a service
 
 const getSingleServiceFromDB = async (id: string) => {
-  const result = await Service.findById(id);
+  const result = await Service.findById(id).select('-__v');
 
   return result;
 };
@@ -48,7 +48,7 @@ const updateServiceIntoDB = async (id: string, payload: Partial<TService>) => {
   const result = await Service.findByIdAndUpdate(id, modifiedUpdateData, {
     new: true,
     runValidators: true,
-  });
+  }).select('-__v');
 
   return result;
 };
@@ -67,7 +67,7 @@ const deleteServiceFromDB = async (id: string) => {
       isDeleted: true,
     },
     { new: true },
-  );
+  ).select('-__v');
   return result;
 };
 
