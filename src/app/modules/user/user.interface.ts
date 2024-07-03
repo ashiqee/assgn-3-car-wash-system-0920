@@ -11,6 +11,7 @@ export type TUser ={
     phone:string;
     role: TRole;
     address: string;
+    __v?: number;
 
 }
 

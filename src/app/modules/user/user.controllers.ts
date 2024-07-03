@@ -13,6 +13,7 @@ const createUser = catchAsync(async (req,res)=>{
 
     const resultObj = result.toObject();
     delete resultObj.password;
+    delete resultObj.__v;
 
     sendResponse(res,{
         statusCode: httpStatus.OK,
@@ -36,7 +37,7 @@ const signInUser = catchAsync(async(req,res)=>{
         sameSite:'none',
         maxAge: 1000*60*60*24*365,
     })
-
+    delete user.__v
     sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,
