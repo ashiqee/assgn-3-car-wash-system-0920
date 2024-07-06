@@ -14,7 +14,7 @@ const booking_model_1 = require("./booking.model");
 const createServiceBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield booking_model_1.ServiceBooking.create(payload);
     const populateBooking = yield booking_model_1.ServiceBooking.findById(result._id)
-        .populate('customer service slot', '-role -__v -createdAt -updatedAt').exec();
+        .populate('customer service slot', '-role -__v -createdAt -updatedAt').select('-__v');
     return populateBooking;
 });
 //get all booking admin
