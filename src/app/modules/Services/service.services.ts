@@ -13,8 +13,10 @@ const createServiceIntoDB = async (payload: TService) => {
   }
 
   const result = await Service.create(payload);
+  
+  const { __v, ...resultWithoutV } = result.toObject();
 
-  return result;
+  return resultWithoutV;
 };
 
 // get all services

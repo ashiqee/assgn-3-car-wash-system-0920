@@ -6,5 +6,6 @@ export type TService= {
     price:number;
     duration:number;
     isDeleted: boolean;
+    __v?: number;
 }
 

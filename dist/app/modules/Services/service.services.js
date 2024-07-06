@@ -35,7 +35,8 @@ const createServiceIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Same Service Name already exist');
     }
     const result = yield service_model_1.Service.create(payload);
-    return result;
+    const _a = result.toObject(), { __v } = _a, resultWithoutV = __rest(_a, ["__v"]);
+    return resultWithoutV;
 });
 // get all services
 const getAllServicesFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
