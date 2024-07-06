@@ -9,7 +9,7 @@ const createServiceBookingIntoDB = async(payload: TBooking)=>{
     const result = await ServiceBooking.create(payload);
 
     const populateBooking = await ServiceBooking.findById(result._id)
-    .populate('customer service slot','-role -__v -createdAt -updatedAt').exec();
+    .populate('customer service slot','-role -__v -createdAt -updatedAt').select('-__v');
     return populateBooking;
 
 }
